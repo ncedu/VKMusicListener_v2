@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.ncedu.entity.Rooms" table="Admin.Rooms">
+        <id column="room_id" name="room_id" type="java.lang.Long">
+            <generator class="increment"/>
+        </id>
+        <property column="name" name="name" type="java.lang.String"/>
+        <property column="desc" name="description" type="java.lang.String"/>
+        <property column="created" name="created" type="java.sql.Date"/>
+        <set name="playlists">
+            <key column="room_id"/>
+            <one-to-many class="org.ncedu.entity.Playlist"/>
+        </set>
+    </class>
+</hibernate-mapping>
