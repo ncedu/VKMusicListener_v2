@@ -12,11 +12,15 @@
     <link rel="stylesheet" href="resources/css/index.css">
 </head>
 <body>
-    <div class="auth">
-        <p>Авторизация через сайт Вконтакте:</p>
-        <a id="vk_auth" href="auth">
-            <img src="resources/img/vk.png" width="100" height="100">
+    <div class="top">
+        <img class="logo" src="resources/img/logo.png">
+        <a class="vk_href" href="auth">
+            <img class="vk_logo" src="resources/img/vk.png">
         </a>
     </div>
+    <div class="workspace">
+
+    </div>
+
 </body>
 </html>
