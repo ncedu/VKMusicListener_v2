@@ -6,9 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
-import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -46,7 +46,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     @Bean(name = "sessionFactory")
     public SessionFactory sessionFactory () throws Exception {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        //sessionFactoryBean.setDataSource(dataSource());
+        sessionFactoryBean.setDataSource(dataSource());
         sessionFactoryBean.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
         //sessionFactoryBean.setPackagesToScan("org.ncedu.entity");
         sessionFactoryBean.afterPropertiesSet();
