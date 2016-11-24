@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,10 +33,11 @@ public class MainController {
     private UserService userService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index (HttpServletRequest request, ModelMap model) {
-        model.addAttribute("message", "authOverVk");
-        return "index";
+    public ModelAndView index () {
+        ModelAndView modelAndView = new ModelAndView("index");
+        return modelAndView;
     }
+
     @RequestMapping(value = "auth", method = RequestMethod.GET)
     public String vkoAuth() {
         return "redirect:"+
@@ -55,9 +57,10 @@ public class MainController {
 
     @RequestMapping(value = "useradd")
     public String getUser (@RequestParam(value = "access_token") String token,
-                           @RequestParam(value = "user_id") String user_id) {
-                          // HttpServletRequest request,
-                           //HttpServletResponse response) throws IOException, ServletException {
+                           @RequestParam(value = "user_id") String user_id,
+                           HttpServletResponse response) {
+        // HttpServletRequest request,
+        //HttpServletResponse response) throws IOException, ServletException {
         /*if (request.getMethod().equals("GET")) {
             //model.addAttribute("token", token);
             //model.addAttribute("user_id", user_id);
@@ -68,19 +71,30 @@ public class MainController {
             response.getOutputStream().write("id".getBytes());
             return response;
         } */
-        Users user = new Users();
-        user.setVk_id(user_id);
-        user.setAccess_token(token);
-        user.setRegistration(new Date(new java.util.Date().getTime()));
-        user.setName(user_id);
-        userService.addUser(user);
-        return "redirect:user?user="+user.getUser_id();
+        Users user = null;
+        if ((user =userService.getUserByVk(user_id)) == null) {
+            user = new Users();
+            user.setVk_id(user_id);
+            user.setAccess_token(token);
+            user.setRegistration(new Date(new java.util.Date().getTime()));
+            user.setName(user_id);
+            userService.addUser(user);
+        } else {
+            if (!user.getAccess_token().equals(token)) {
+                user.setAccess_token(token);
+                userService.updateUser(user);
+            }
+        }
+        return "redirect:user?id=" + user.getUser_id();
     }
 
     @RequestMapping(value = "user")
-    public String getUser (@RequestParam(value = "user") String user,
+    public String getUser (@RequestParam(value = "id") String id,
                            ModelMap model) {
-        model.addAttribute("user", user);
+        Users user = userService.getUserById(Long.parseLong(id));
+        model.addAttribute("username", user.getName());
+        model.addAttribute("vk_id", user.getVk_id());
+        model.addAttribute("registration", user.getRegistration());
         return "user";
     }
 

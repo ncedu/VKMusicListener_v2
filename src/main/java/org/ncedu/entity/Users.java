@@ -1,13 +1,13 @@
 package org.ncedu.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
 /**
  * Created by nick on 19.11.16.
  */
-
-public class Users {
+public class Users implements Serializable{
     private long user_id;
 
     private String name;
@@ -17,6 +17,8 @@ public class Users {
     private Date registration;
 
     private String access_token;
+
+    private String session_id;
 
     private Set<User_Playlist> user_playlists;
 
@@ -61,6 +63,14 @@ public class Users {
 
     public void setAccess_token(String access_token) {
         this.access_token = access_token;
+    }
+
+    public String getSession_id() {
+        return session_id;
+    }
+
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
     }
 
     public Set<User_Playlist> getUser_playlists() {

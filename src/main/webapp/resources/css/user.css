@@ -1,0 +1,139 @@
+.top {
+    background-color: #1E2030;
+    width: 100%;
+    height: 7%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.workspace {
+    background-color: #B7B9C3;
+    width: 100%;
+    height: 93%;
+    position: fixed;
+    top: 7%;
+    left: 0%;
+}
+
+
+
+.exit {
+    position: absolute;
+    top: 20%;
+    right: 3%;
+    text-decoration:none; text-align:center;
+    padding:3px 8px;
+    border:solid 2px #ffffff;
+    font:24px Arial, Helvetica, sans-serif;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius: 10px;
+    font-weight:bold;
+    color:#ffffff;
+    background:#4e739d;
+    -webkit-box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    -moz-box-shadow: 0px 0px 2px #bababa,  inset 0px 0px 1px #ffffff;
+    box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+}
+
+
+.logo {
+    position: absolute;
+    width: 10%;
+    height: 80%;
+    left: 10%;
+    top: 10%;
+}
+
+.user_info {
+    position: absolute;
+    width: 35%;
+    height: 90%;
+    left: 10%;
+    top: 5%;
+    background-color: white;
+    border: solid 2px #1E2030;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius: 2%;
+}
+
+.infoblock {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+}
+
+.rooms {
+    position: absolute;
+    width: 50%;
+    height: 90%;
+    right: 3%;
+    top: 5%;
+    background-color: white;
+    border: solid 2px #1E2030;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius: 2%;
+}
+.newRoom {
+    position: absolute;
+    width: 20%;
+    height: 6%;
+    right: 2%;
+    top: 2%;
+    background-color: #1E2030;
+    color: white;
+    border: solid 2px white;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius: 10%;
+}
+.hr {
+    position: absolute;
+    width: 96%;
+    right: 2%;
+    top: 9%;
+}
+
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+
+.popup-content {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    height: 30%;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.hidePopUp {
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    top: 2%;
+    right: 2%;
+}
+
+.roomsParams {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    top: 10%;
+    left: 0;
+}
