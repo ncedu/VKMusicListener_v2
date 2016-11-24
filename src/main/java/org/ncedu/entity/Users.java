@@ -1,5 +1,8 @@
 package org.ncedu.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
@@ -7,19 +10,24 @@ import java.util.Set;
 /**
  * Created by nick on 19.11.16.
  */
+@Entity
+@Table
 public class Users implements Serializable{
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private long user_id;
-
+    @Column
     private String name;
-
+    @Column
     private String vk_id;
-
+    @Column
     private Date registration;
-
+    @Column
     private String access_token;
-
+    @Column
     private String session_id;
-
+    @OneToMany (mappedBy = "user_id")
     private Set<User_Playlist> user_playlists;
 
     public Users() {

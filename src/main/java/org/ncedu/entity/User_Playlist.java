@@ -1,15 +1,27 @@
 package org.ncedu.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * Created by nick on 19.11.16.
  */
-public class User_Playlist {
+@Entity
+@Table
+public class User_Playlist implements Serializable {
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long up_id;
-
-    private Users users;
-
-    private Playlist playlist;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "playlist_id", nullable = false)
+    private Playlist playlist_id;
+    @Column
     private Integer isCreatorRoom;
 
     public Integer getIsCreatorRoom() {
@@ -31,19 +43,19 @@ public class User_Playlist {
         this.up_id = up_id;
     }
 
-    public Users getUsers() {
-        return users;
+    public Users getUser_id() {
+        return user_id;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUser_id(Users user_id) {
+        this.user_id = user_id;
     }
 
-    public Playlist getPlaylist() {
-        return playlist;
+    public Playlist getPlaylist_id() {
+        return playlist_id;
     }
 
-    public void setPlaylist(Playlist playlist) {
-        this.playlist = playlist;
+    public void setPlaylist_id(Playlist playlist_id) {
+        this.playlist_id = playlist_id;
     }
 }

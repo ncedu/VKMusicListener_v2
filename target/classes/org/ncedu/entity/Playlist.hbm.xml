@@ -6,7 +6,7 @@
         <id column="playlist_id" name="playlist_id" type="java.lang.Long">
             <generator class="increment"/>
         </id>
-        <many-to-one name="music" column="music" class="org.ncedu.entity.Music" not-null="false"/>
+        <many-to-one name="getMusic_id" column="music_id" class="org.ncedu.entity.Music" not-null="false"/>
         <many-to-one name="rooms" column="rooms" class="org.ncedu.entity.Rooms" not-null="true"/>
         <property name="added_date" column="added_date" type="java.sql.Date"/>
         <set name="user_playlists">

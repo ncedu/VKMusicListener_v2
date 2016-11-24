@@ -38,7 +38,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     public DataSource dataSource () {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-        dataSource.setUrl("jdbc:oracle:thin:@192.168.0.108:1521/orcl");
+        dataSource.setUrl("jdbc:oracle:thin:@10.17.1.41:1521/orcl");
         dataSource.setUsername("admin");
         dataSource.setPassword("1");
         return dataSource;
@@ -48,7 +48,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
         sessionFactoryBean.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
-        //sessionFactoryBean.setPackagesToScan("org.ncedu.entity");
+        sessionFactoryBean.setPackagesToScan("org.ncedu.entity");  // tut
         sessionFactoryBean.afterPropertiesSet();
         return sessionFactoryBean.getObject();
 

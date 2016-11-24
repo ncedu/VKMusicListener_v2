@@ -1,23 +1,32 @@
 package org.ncedu.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
 /**
  * Created by nick on 19.11.16.
  */
-public class Rooms {
+@Entity
+@Table
+public class Rooms implements Serializable {
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private long room_id;
-
+    @Column
     private String name;
-
+    @Column
     private String description;
-
+    @Column
     private Date created;
-
+    @Column
+    private String room_link;
+    @OneToMany (mappedBy = "room_id")
     private Set<Playlist> playlists;
-
 
     public Rooms() {
     }
@@ -52,6 +61,14 @@ public class Rooms {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public String getRoom_link() {
+        return room_link;
+    }
+
+    public void setRoom_link(String room_link) {
+        this.room_link = room_link;
     }
 
     public Set<Playlist> getPlaylists() {

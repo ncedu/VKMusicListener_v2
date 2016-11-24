@@ -36,6 +36,7 @@
         <div class="rooms">
             <a href="javascript:PopUpShow()" class="newRoom">Add new room..</a>
             <hr class="hr">
+            <h3>Room_id: ${room_id}</h3>
         </div>
     </div>
     <div class="popup" id="popup1">

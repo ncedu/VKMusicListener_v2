@@ -6,8 +6,8 @@
         <id column="up_id" name="up_id" type="java.lang.Long">
             <generator class="increment"/>
         </id>
-        <many-to-one name="users" column="users" class="org.ncedu.entity.Users" not-null="true"/>
-        <many-to-one name="playlist" column="playlist" class="org.ncedu.entity.Playlist" not-null="true"/>
+        <many-to-one name="getUser_id" column="user_id" class="org.ncedu.entity.Users" not-null="true"/>
+        <many-to-one name="getPlaylist_id" column="playlist_id" class="org.ncedu.entity.Playlist" not-null="true"/>
         <property column="isCreatorRoom" name="isCreatorRoom" type="java.lang.Integer"/>
     </class>
 </hibernate-mapping>

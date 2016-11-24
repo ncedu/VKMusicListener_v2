@@ -1,6 +1,7 @@
 package org.ncedu.controller;
 
 import org.ncedu.entity.Users;
+import org.ncedu.service.RoomService;
 import org.ncedu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -31,6 +33,9 @@ public class MainController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoomService roomService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index () {
@@ -95,6 +100,8 @@ public class MainController {
         model.addAttribute("username", user.getName());
         model.addAttribute("vk_id", user.getVk_id());
         model.addAttribute("registration", user.getRegistration());
+        //List rooms = roomService.getRoomsByUser(user);
+        //model.addAttribute("room_id", rooms.get(0));
         return "user";
     }
 

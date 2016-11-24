@@ -1,22 +1,29 @@
 package org.ncedu.entity;
 
 import oracle.sql.BLOB;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Created by nick on 19.11.16.
  */
-public class Music {
+@Entity
+@Table
+public class Music implements Serializable{
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long music_id;
-
+    @Column
     private String author;
-
+    @Column
     private String name;
-
+    @Column
     private BLOB song;
-
+    @OneToMany (mappedBy = "music_id")
     private Set<Playlist> playlists;
 
     public Music() {

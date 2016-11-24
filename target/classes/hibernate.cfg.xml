@@ -5,18 +5,18 @@
 <hibernate-configuration>
     <session-factory>
         <!--<property name="hibernate.connection.datasource">dataSource</property>-->
-        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="hibernate.connection.url">jdbc:oracle:thin:@192.168.0.108:1521/orcl</property>
+        <!--<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@192.168.0.109:1521/orcl</property>
         <property name="hibernate.connection.username">admin</property>
-        <property name="hibernate.connection.password">1</property>
+        <property name="hibernate.connection.password">1</property>-->
         <!--<property name="hibernate.default_schema">ORCL12C</property>-->
         <property name="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</property>
         <property name="hibernate.show_sql">true</property>
-        <mapping resource="org/ncedu/entity/Music.hbm.xml"/>
+        <!--<mapping resource="org/ncedu/entity/Music.hbm.xml"/>
         <mapping resource="org/ncedu/entity/Users.hbm.xml"/>
         <mapping resource="org/ncedu/entity/Rooms.hbm.xml"/>
         <mapping resource="org/ncedu/entity/Playlist.hbm.xml"/>
-        <mapping resource="org/ncedu/entity/User_Playlist.hbm.xml"/>
+        <mapping resource="org/ncedu/entity/User_Playlist.hbm.xml"/>-->
         <!--<mapping class="org.ncedu.entity.T"/>-->
         <!--<mapping class="org.ncedu.entity.Users"/>
         <mapping class="org.ncedu.entity.Music"/>
