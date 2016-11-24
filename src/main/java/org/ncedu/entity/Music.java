@@ -23,7 +23,7 @@ public class Music implements Serializable{
     private String name;
     @Column
     private BLOB song;
-    @OneToMany (mappedBy = "music_id")
+    @OneToMany (mappedBy = "music")
     private Set<Playlist> playlists;
 
     public Music() {

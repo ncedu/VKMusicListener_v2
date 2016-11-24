@@ -1,5 +1,6 @@
 package org.ncedu.controller;
 
+import org.ncedu.entity.Rooms;
 import org.ncedu.entity.Users;
 import org.ncedu.service.RoomService;
 import org.ncedu.service.UserService;
@@ -100,8 +101,10 @@ public class MainController {
         model.addAttribute("username", user.getName());
         model.addAttribute("vk_id", user.getVk_id());
         model.addAttribute("registration", user.getRegistration());
-        //List rooms = roomService.getRoomsByUser(user);
-        //model.addAttribute("room_id", rooms.get(0));
+        List rooms;
+        if((rooms = roomService.getRoomsByUser(user)) != null && rooms.size() > 0 ) {
+            model.addAttribute("room_id", ((Rooms)rooms.get(0)).getRoom_link());
+        };
         return "user";
     }
 

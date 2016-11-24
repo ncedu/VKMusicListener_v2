@@ -15,12 +15,15 @@ public class User_Playlist implements Serializable {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long up_id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private Users user_id;
+    private Users user;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "playlist_id", nullable = false)
-    private Playlist playlist_id;
+    private Playlist playlist;
+
     @Column
     private Integer isCreatorRoom;
 
@@ -43,19 +46,19 @@ public class User_Playlist implements Serializable {
         this.up_id = up_id;
     }
 
-    public Users getUser_id() {
-        return user_id;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUser_id(Users user_id) {
-        this.user_id = user_id;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
-    public Playlist getPlaylist_id() {
-        return playlist_id;
+    public Playlist getPlaylist() {
+        return playlist;
     }
 
-    public void setPlaylist_id(Playlist playlist_id) {
-        this.playlist_id = playlist_id;
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
     }
 }

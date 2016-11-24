@@ -17,12 +17,13 @@ public class RoomDAOImpl implements RoomDAO {
     HibernateTemplate hibernateTemplate;
 
     @Override
-    public List getRoomsByUser(Users user) {
-        List result = hibernateTemplate.find("from org.ncedu.entity.Rooms r " +
-                "where org.ncedu.entity.Playlist in " +
-                "(select org.ncedu.entity.User_Playlist " +
-                "from org.ncedu.entity.User_Playlist " +
-                "where USER_ID = ?)", user.getUser_id());
+    public List<Rooms> getRoomsByUser(Users user) {
+        List<Rooms> result = (List<Rooms>) hibernateTemplate.find("select r from Users u " +
+                "join u.user_playlists up " +
+                "join up.playlist p " +
+                "join p.room r " +
+                "where u.user_id = " +
+                user.getUser_id());
         return result;
     }
 }

@@ -19,13 +19,13 @@ public class Playlist implements Serializable {
     private long playlist_id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false)
-    private Rooms room_id;
+    private Rooms room;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "music_id", nullable = true)
-    private Music music_id;
+    private Music music;
     @Column
     private Date added_date;
-    @OneToMany (mappedBy = "playlist_id")
+    @OneToMany (mappedBy = "playlist")
     private Set<User_Playlist> user_playlists;
 
     public Playlist() {
@@ -39,20 +39,20 @@ public class Playlist implements Serializable {
         this.playlist_id = playlist_id;
     }
 
-    public Rooms getRoom_id() {
-        return room_id;
+    public Rooms getRoom() {
+        return room;
     }
 
-    public void setRoom_id(Rooms rooms) {
-        this.room_id = rooms;
+    public void setRoom(Rooms rooms) {
+        this.room = rooms;
     }
 
-    public Music getMusic_id() {
-        return music_id;
+    public Music getMusic() {
+        return music;
     }
 
-    public void setMusic_id(Music music_id) {
-        this.music_id = music_id;
+    public void setMusic(Music music) {
+        this.music = music;
     }
 
     public Date getAdded_date() {

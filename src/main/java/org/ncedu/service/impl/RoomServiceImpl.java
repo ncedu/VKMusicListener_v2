@@ -1,6 +1,7 @@
 package org.ncedu.service.impl;
 
 import org.ncedu.dao.RoomDAO;
+import org.ncedu.entity.Rooms;
 import org.ncedu.entity.Users;
 import org.ncedu.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Transactional
     @Override
-    public List getRoomsByUser (Users user) {
-        roomDAO.getRoomsByUser(user);
-        return null;
+    public List<Rooms> getRoomsByUser (Users user) {
+        return roomDAO.getRoomsByUser(user);
     }
 }

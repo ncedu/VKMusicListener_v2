@@ -17,15 +17,20 @@ public class Rooms implements Serializable {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private long room_id;
+
     @Column
     private String name;
+
     @Column
     private String description;
+
     @Column
     private Date created;
+
     @Column
     private String room_link;
-    @OneToMany (mappedBy = "room_id")
+
+    @OneToMany (mappedBy = "room")
     private Set<Playlist> playlists;
 
     public Rooms() {

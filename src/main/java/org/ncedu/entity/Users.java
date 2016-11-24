@@ -12,22 +12,28 @@ import java.util.Set;
  */
 @Entity
 @Table
-public class Users implements Serializable{
+public class Users implements Serializable {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private long user_id;
+
     @Column
     private String name;
+
     @Column
     private String vk_id;
+
     @Column
     private Date registration;
+
     @Column
     private String access_token;
+
     @Column
     private String session_id;
-    @OneToMany (mappedBy = "user_id")
+
+    @OneToMany (mappedBy = "user")
     private Set<User_Playlist> user_playlists;
 
     public Users() {

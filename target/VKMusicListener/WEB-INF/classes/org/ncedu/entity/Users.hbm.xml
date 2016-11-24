@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="org.ncedu.entity.Users" table="Admin.Users">
-        <id column="user_id" name="user_id" type="java.lang.Long">
+        <id column="user" name="user" type="java.lang.Long">
             <generator class="increment"/>
         </id>
         <property column="name" name="name" type="java.lang.String"/>
@@ -11,7 +11,7 @@
         <property column="registration" name="registration" type="java.sql.Date"/>
         <property column="access_token" name="access_token" type="java.lang.String"/>
         <set name="user_playlists">
-            <key column="user_id"/>
+            <key column="user"/>
             <one-to-many class="org.ncedu.entity.User_Playlist"/>
         </set>
     </class>
