@@ -43,10 +43,34 @@
         <div class="popup-content">
             <a href="javascript:PopUpHide()" class="hidePopUp">Close</a>
             <div class="roomsParams">
-                <form action="roomadd.jsp">
-                    <p><input type="text"/>Room name</p>
-                    <p><input type="text"/>Room description</p>
-                    <p><input type="submit" value="Create room"/></p>
+                <form>
+                    <p><input id="name" type="text"/>Room name</p>
+                    <p><input id="description" type="text"/>Room description</p>
+                    <button id="send" type="button"/>Create room</p>
+                    <script type="text/javascript">
+                        document.getElementById("send").addEventListener("mousedown", function (event) {
+                            if (event.which == 1) {
+                                var room = { name : null, description : null };
+                                room.name = document.getElementById("name").value;
+                                room.description = document.getElementById("description").value;
+                                room.creatorVkId = ${vk_id}
+                                        console.log("Отправляю "+JSON.stringify(room));
+                                $.ajax({
+                                    url:"/VKMusicListener/add_room",
+                                    type:"POST",
+                                    headers: {
+                                        "Accept" : "application/json; charset=utf-8"
+                                    },
+                                    contentType:"application/json; charset=utf-8",
+                                    data: JSON.stringify(room),
+                                    dataType:"json"
+                                })
+                                document.getElementById("name").value ="";
+                                document.getElementById("description").value="";
+                                PopUpHide();
+                            }
+                        })
+                    </script>
                 </form>
             </div>
         </div>

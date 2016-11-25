@@ -1,10 +1,13 @@
 package org.ncedu.controller;
 
+import org.ncedu.entity.MessageRoom;
 import org.ncedu.entity.Rooms;
 import org.ncedu.entity.Users;
 import org.ncedu.service.RoomService;
 import org.ncedu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -42,6 +45,16 @@ public class MainController {
     public ModelAndView index () {
         ModelAndView modelAndView = new ModelAndView("index");
         return modelAndView;
+    }
+
+    //Реакция на нажатие кнопки "Create Room"
+    //Затем надо инфу с messageRoom перенести в Room, а Room добавить в бд
+    @PostMapping(value = "/add_room")
+    public ResponseEntity receiveRoom(@RequestBody MessageRoom messageRoom) {
+
+        System.out.println("Received from client: " + messageRoom);
+        //Здесь будет вызов dao на добавление комнаты в бд
+        return new ResponseEntity("Success", HttpStatus.OK);
     }
 
     @RequestMapping(value = "auth", method = RequestMethod.GET)
