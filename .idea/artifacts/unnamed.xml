@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="unnamed">
+  <artifact type="war" name="unnamed">
     <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
     <root id="archive" name="unnamed.war">
       <element id="directory" name="META-INF">

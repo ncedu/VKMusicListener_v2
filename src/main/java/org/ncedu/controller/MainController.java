@@ -121,7 +121,10 @@ public class MainController {
         return "user";
     }
 
-
+    @RequestMapping (value = "room")
+    public String getRoom () {
+        return "room";
+    }
     @RequestMapping(value = "mp3")
     public HttpServletResponse mp3 (HttpServletRequest request, HttpServletResponse response)
             throws IOException {

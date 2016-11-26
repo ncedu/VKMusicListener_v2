@@ -23,7 +23,7 @@
 <body>
     <div class="top">
         <img class="logo" src="resources/img/logo.png">
-        <a href="localhost:8080/VKMusicListener/exit" class="exit"/>Exit</a>
+        <a href="localhost:8080/VKMusicListener/exit" class="exit">Exit</a>
     </div>
     <div class="workspace">
         <div class="user_info">
