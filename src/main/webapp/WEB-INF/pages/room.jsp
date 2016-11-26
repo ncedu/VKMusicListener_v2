@@ -73,7 +73,7 @@
                         </div>
                         <!-- Будущий плейлист -->
                         <div class="jp-playlist">
-                            <ul>
+                            <ul class="jp-playlist-list">
                                 <li></li>
                             </ul>
                         </div>

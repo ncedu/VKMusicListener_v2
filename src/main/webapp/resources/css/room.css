@@ -64,3 +64,21 @@
 .jp-interface {
     position: absolute;
 }
+
+.jp-jplayer {
+    height: 10%;
+}
+
+.jp-audio {
+    height: 90%;
+}
+
+.jp-type-playlist {
+    height: 100%;
+    <!--overflow: scroll;-->
+}
+
+.jp-playlist-list {
+    height: 100%;
+    overflow: scroll;
+}
