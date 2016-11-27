@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface RoomService {
     public List<Rooms> getRoomsByUser (Users user);
+
+    void addRoom(String name, String description);
 }

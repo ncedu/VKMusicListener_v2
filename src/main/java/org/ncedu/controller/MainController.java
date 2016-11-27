@@ -53,7 +53,7 @@ public class MainController {
     public ResponseEntity receiveRoom(@RequestBody MessageRoom messageRoom) {
 
         System.out.println("Received from client: " + messageRoom);
-        //Здесь будет вызов dao на добавление комнаты в бд
+        roomService.addRoom(messageRoom.getName(),messageRoom.getDescription());
         return new ResponseEntity("Success", HttpStatus.OK);
     }
 

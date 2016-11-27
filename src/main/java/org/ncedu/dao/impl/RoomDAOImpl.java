@@ -26,4 +26,9 @@ public class RoomDAOImpl implements RoomDAO {
                 user.getUser_id());
         return result;
     }
+
+    public void addRoom(Rooms room)
+    {
+        hibernateTemplate.save(room);
+    }
 }

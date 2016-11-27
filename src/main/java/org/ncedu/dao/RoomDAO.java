@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface RoomDAO {
     public List<Rooms> getRoomsByUser (Users user);
+
+    void addRoom(Rooms room);
 }
