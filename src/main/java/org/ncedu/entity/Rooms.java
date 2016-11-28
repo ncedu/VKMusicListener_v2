@@ -10,6 +10,7 @@ import java.util.Set;
 /**
  * Created by nick on 19.11.16.
  */
+
 @Entity
 @Table
 public class Rooms implements Serializable {

@@ -27,6 +27,7 @@ public class RoomDAOImpl implements RoomDAO {
         return result;
     }
 
+    @Override
     public void addRoom(Rooms room)
     {
         hibernateTemplate.save(room);
@@ -46,4 +47,5 @@ public class RoomDAOImpl implements RoomDAO {
                 "where r.room_link = \'" +
                 link + "\'" + " and up.isCreatorRoom = 1");
     }
+
 }

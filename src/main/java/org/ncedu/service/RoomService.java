@@ -14,5 +14,5 @@ public interface RoomService {
     void addRoom(String name, String description);
     public Rooms getRoomsByLink (String link);
     public String getCreatorIdRoomsByLink (String link);
-
+    public void addUserInRoom (Users user, Rooms room);
 }

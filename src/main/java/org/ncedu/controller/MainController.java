@@ -135,6 +135,20 @@ public class MainController {
     }
 
 
+    @RequestMapping(value = "json")
+    public @ResponseBody Users[] getJson () {
+        Users[] strings = new Users[2];
+        Users users = new Users();
+        users.setName("1");
+        users.setAccess_token("at");
+        Users users1 = new Users();
+        users1.setName("2");
+        users1.setAccess_token("at2");
+        strings[0] = users;
+        strings[1] = users1;
+        return strings;
+    }
+
     @RequestMapping(value = "mp3")
     public HttpServletResponse mp3 (HttpServletRequest request, HttpServletResponse response)
             throws IOException {

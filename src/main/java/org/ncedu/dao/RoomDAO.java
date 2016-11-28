@@ -12,5 +12,5 @@ public interface RoomDAO {
     public List<Rooms> getRoomsByUser (Users user);
     public List<Rooms> getRoomsByLink (String link);
     public List<Long> getCreatorIdRoomByLink (String link);
-    void addRoom(Rooms room);
+    public void addRoom(Rooms room);
 }

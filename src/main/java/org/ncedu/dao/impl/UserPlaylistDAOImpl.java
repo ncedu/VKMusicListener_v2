@@ -1,21 +1,21 @@
 package org.ncedu.dao.impl;
 
-import org.ncedu.dao.PlaylistDAO;
-import org.ncedu.entity.Playlist;
+import org.ncedu.dao.UserPlaylistDAO;
+import org.ncedu.entity.User_Playlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by nick on 16.11.16.
+ * Created by nick on 28.11.16.
  */
 @Repository
-public class PlaylistDAOImpl implements PlaylistDAO {
+public class UserPlaylistDAOImpl implements UserPlaylistDAO {
     @Autowired
     HibernateTemplate hibernateTemplate;
 
     @Override
-    public void addPlaylist(Playlist playlist) {
-        hibernateTemplate.save(playlist);
+    public void addUserPlaylist(User_Playlist user_playlist) {
+        hibernateTemplate.save(user_playlist);
     }
 }
