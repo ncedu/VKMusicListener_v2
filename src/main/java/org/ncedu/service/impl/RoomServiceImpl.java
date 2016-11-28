@@ -48,12 +48,11 @@ public class RoomServiceImpl implements RoomService {
         room.setName(name);
         room.setDescription(description);
 
-        String symbols = "abdefhiknrstyzABDEFGHKNQRSTYZ23456789";
-        StringBuilder randLink = new StringBuilder();
-        for(int i=0;i<30;i++)
-             randLink.append(symbols.charAt((int)(Math.random()*symbols.length())));
-
-        room.setRoom_link(randLink.toString());
+        String randLink = randLink();
+        while (!roomDAO.isUniqueRoomLink(randLink)) {
+            randLink = randLink();
+        }
+        room.setRoom_link(randLink());
         Calendar currenttime = Calendar.getInstance();
         Date createdDate = new Date((currenttime.getTime()).getTime());
         room.setCreated(createdDate);
@@ -101,5 +100,13 @@ public class RoomServiceImpl implements RoomService {
         user_playlist.setPlaylist(playlist);
         user_playlist.setIsCreatorRoom(0);
         userPlaylistDAO.addUserPlaylist(user_playlist);
+    }
+
+    public String randLink () {
+        String symbols = "abdefhiknrstyzABDEFGHKNQRSTYZ23456789";
+        StringBuilder randLink = new StringBuilder();
+        for(int i=0;i<30;i++)
+            randLink.append(symbols.charAt((int)(Math.random()*symbols.length())));
+        return randLink.toString();
     }
 }

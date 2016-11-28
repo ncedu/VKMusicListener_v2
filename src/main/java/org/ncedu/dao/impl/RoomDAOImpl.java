@@ -48,4 +48,11 @@ public class RoomDAOImpl implements RoomDAO {
                 link + "\'" + " and up.isCreatorRoom = 1");
     }
 
+    @Override
+    public boolean isUniqueRoomLink(String link) {
+        List result = hibernateTemplate.find("select * from Rooms r where r.room_link = ''" + link + "''");
+        if (result == null) {
+            return true;
+        } return false;
+    }
 }
