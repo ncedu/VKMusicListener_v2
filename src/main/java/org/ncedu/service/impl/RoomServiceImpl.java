@@ -42,7 +42,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Transactional
     @Override
-    public void addRoom(String name, String description)
+    public void addRoom(String name, String description, String user_vk_id)
     {
         Rooms room = new Rooms();
         room.setName(name);
@@ -55,8 +55,23 @@ public class RoomServiceImpl implements RoomService {
 
         room.setRoom_link(randLink.toString());
         Calendar currenttime = Calendar.getInstance();
-        room.setCreated(new Date((currenttime.getTime()).getTime()));
+        Date createdDate = new Date((currenttime.getTime()).getTime());
+        room.setCreated(createdDate);
         roomDAO.addRoom(room);
+
+        Users user = (Users) userDAO.getUserByVk(user_vk_id).get(0);
+        Playlist playlist = new Playlist();
+        playlist.setMusic(null);
+        playlist.setAdded_date(createdDate);
+        playlist.setRoom(room);
+        playlist.setUser_playlists(null);
+        playlistDAO.addPlaylist(playlist);
+
+        User_Playlist user_playlist = new User_Playlist();
+        user_playlist.setUser(user);
+        user_playlist.setIsCreatorRoom(1);
+        user_playlist.setPlaylist(playlist);
+        userPlaylistDAO.addUserPlaylist(user_playlist);
     }
 
     @Transactional

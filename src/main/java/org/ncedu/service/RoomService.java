@@ -11,7 +11,7 @@ import java.util.List;
 public interface RoomService {
     public List<Rooms> getRoomsByUser (Users user);
 
-    void addRoom(String name, String description);
+    void addRoom(String name, String description, String user_vk_id);
     public Rooms getRoomsByLink (String link);
     public String getCreatorIdRoomsByLink (String link);
     public void addUserInRoom (Users user, Rooms room);
