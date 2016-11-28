@@ -121,10 +121,20 @@ public class MainController {
         return "user";
     }
 
-    @RequestMapping (value = "room")
-    public String getRoom () {
+    @RequestMapping (value = "room/{room_link}")
+    public String getRoom (@PathVariable ("room_link") String room_link,
+                           ModelMap model) {
+        Rooms room = roomService.getRoomsByLink(room_link);
+        Users creator = userService.getUserById(Long.parseLong(roomService.getCreatorIdRoomsByLink(room_link)));
+        model.addAttribute("room_name", room.getName().toUpperCase());
+        model.addAttribute("href_creator", creator.getUser_id());
+        model.addAttribute("room_creator", creator.getName());
+        model.addAttribute("room_created", room.getCreated().toString());
+        model.addAttribute("room_description", room.getDescription());
         return "room";
     }
+
+
     @RequestMapping(value = "mp3")
     public HttpServletResponse mp3 (HttpServletRequest request, HttpServletResponse response)
             throws IOException {

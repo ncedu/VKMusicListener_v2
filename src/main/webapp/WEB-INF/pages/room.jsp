@@ -2,22 +2,49 @@
 <html>
 <head>
     <title>Room</title>
-    <link rel="stylesheet" href="resources/css/room.css">
-    <script type="text/javascript" src="resources/script/lib/jquery/1.10.2/jquery-1.10.2.min.js" ></script>
+    <link rel="stylesheet" href="http://localhost:8080/VKMusicListener/resources/css/room.css">
+    <script type="text/javascript" src="http://localhost:8080/VKMusicListener/resources/script/lib/jquery/1.10.2/jquery-1.10.2.min.js" ></script>
     <!-- audio -->
-    <script type="text/javascript" src="resources/script/lib/jPlayer.2.6.0/js/jquery.jplayer.min.js"></script>
-    <script type="text/javascript" src="resources/script/lib/jPlayer.2.6.0/js/jplayer.playlist.min.js"></script>
-    <script type="text/javascript" src="resources/script/player.js"></script>
-    <link href="resources/script/lib/jPlayer.2.6.0/skin/vkontakte/vkontakte.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://localhost:8080/VKMusicListener/resources/script/lib/jPlayer.2.6.0/js/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/VKMusicListener/resources/script/lib/jPlayer.2.6.0/js/jplayer.playlist.min.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/VKMusicListener/resources/script/player.js"></script>
+    <link href="http://localhost:8080/VKMusicListener/resources/script/lib/jPlayer.2.6.0/skin/vkontakte/vkontakte.css" rel="stylesheet" type="text/css" />
 </head>
     <body>
         <div class="top">
-            <img class="logo" src="resources/img/logo.png">
-            <a href="localhost:8080/VKMusicListener/exit" class="exit">Exit</a>
+            <img class="logo" src="http://localhost:8080/VKMusicListener/resources/img/logo.png">
+            <a href="http://localhost:8080/VKMusicListener/exit" class="exit">Exit</a>
         </div>
         <div class="workspace">
-            <div class="room-info">
+            <div class="room-infoblock">
+                <div class="room-info">
+                    <div class="room-info-top">
+                        <h3 id="room-name">${room_name}</h3>
+                        <form id="room-action">
+                            <p>
+                                <button>Add user</button>
+                                <button>Add song</button>
+                            </p>
+                        </form>
+                    </div>
+                    <div class="room-info-advanced">
+                        <p align="center">Room creator:
+                            <a href="http://localhost:8080/VKMusicListener/user.jsp?id=${href_creator}">${room_creator}</a>
+                            | Date of created: ${room_created}
+                        </p>
+                        <p>Room desc: ${room_description}</p>
+                    </div>
+                    <div class="room-users">
+                        <ul id="room-users">
 
+                        </ul>
+                    </div>
+                    <div class="room-logs">
+                        <ul id="room-logs">
+
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="room-content">
                 <div id="jquery_jplayer_1" class="jp-jplayer">

@@ -31,4 +31,19 @@ public class RoomDAOImpl implements RoomDAO {
     {
         hibernateTemplate.save(room);
     }
+
+    @Override
+    public List<Rooms> getRoomsByLink (String link) {
+        return (List<Rooms>) hibernateTemplate.find ("select r from Rooms r where r.room_link = \'" + link+"\'");
+    }
+
+    @Override
+    public List<Long> getCreatorIdRoomByLink(String link) {
+        return (List<Long>) hibernateTemplate.find ("select distinct u.user_id from Users u " +
+                "join u.user_playlists up " +
+                "join up.playlist p " +
+                "join p.room r " +
+                "where r.room_link = \'" +
+                link + "\'" + " and up.isCreatorRoom = 1");
+    }
 }

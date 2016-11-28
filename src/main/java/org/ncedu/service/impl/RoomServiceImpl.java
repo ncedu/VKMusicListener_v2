@@ -28,6 +28,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Transactional
+    @Override
     public void addRoom(String name, String description)
     {
         Rooms room = new Rooms();
@@ -43,5 +44,17 @@ public class RoomServiceImpl implements RoomService {
         Calendar currenttime = Calendar.getInstance();
         room.setCreated(new Date((currenttime.getTime()).getTime()));
         roomDAO.addRoom(room);
+    }
+
+    @Transactional
+    @Override
+    public Rooms getRoomsByLink(String link) {
+        return roomDAO.getRoomsByLink(link).get(0);
+    }
+
+    @Transactional
+    @Override
+    public String getCreatorIdRoomsByLink(String link) {
+        return "" + roomDAO.getCreatorIdRoomByLink(link).get(0);
     }
 }

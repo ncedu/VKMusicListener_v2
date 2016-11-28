@@ -12,4 +12,7 @@ public interface RoomService {
     public List<Rooms> getRoomsByUser (Users user);
 
     void addRoom(String name, String description);
+    public Rooms getRoomsByLink (String link);
+    public String getCreatorIdRoomsByLink (String link);
+
 }
