@@ -149,6 +149,28 @@ public class MainController {
         return strings;
     }
 
+    @RequestMapping(value = "getRoom/{vk_id}")
+    public @ResponseBody Rooms[] getRoomsByVk (@PathVariable ("vk_id") String vk_id) {
+        Users user = userService.getUserByVk(vk_id);
+        List<Rooms> rooms = roomService.getRoomsByUser(user);
+        Rooms[] result = new Rooms[rooms.size()];
+        for (int i = 0; i<rooms.size(); i++)
+        {
+            result[i] = new Rooms();
+            result[i].setRoom_link(rooms.get(i).getRoom_link());
+            result[i].setRoom_id(rooms.get(i).getRoom_id());
+            result[i].setCreated(rooms.get(i).getCreated());
+            result[i].setName(rooms.get(i).getName());
+            result[i].setDescription(rooms.get(i).getDescription());
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "deleteRoom/{room_id}")
+    public @ResponseBody void deleteRoom (@PathVariable ("room_id") String room_id) {
+
+    }
+
     @RequestMapping(value = "mp3")
     public HttpServletResponse mp3 (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
