@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface MusicDAO {
     public List<Music> getMusicByRoomId (Long room_id);
+    public void addMusic (Music music);
+    public Music getMusicById (Long id);
 }

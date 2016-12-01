@@ -1,10 +1,13 @@
 package org.ncedu.controller;
 
 import org.ncedu.entity.MessageRoom;
+import org.ncedu.entity.Music;
 import org.ncedu.entity.Rooms;
 import org.ncedu.entity.Users;
+import org.ncedu.service.MusicService;
 import org.ncedu.service.RoomService;
 import org.ncedu.service.UserService;
+import org.ncedu.service.VkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,6 +46,12 @@ public class MainController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private VkService vkService;
+
+    @Autowired
+    private MusicService musicService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index () {
@@ -78,18 +90,6 @@ public class MainController {
     public String getUser (@RequestParam(value = "access_token") String token,
                            @RequestParam(value = "user_id") String user_id,
                            HttpServletResponse response) {
-        // HttpServletRequest request,
-        //HttpServletResponse response) throws IOException, ServletException {
-        /*if (request.getMethod().equals("GET")) {
-            //model.addAttribute("token", token);
-            //model.addAttribute("user_id", user_id);
-            request.getServletContext().getRequestDispatcher("user.jsp").forward(request, response);
-            return response;
-        } else {
-            response.setStatus(200);
-            response.getOutputStream().write("id".getBytes());
-            return response;
-        } */
         Users user = null;
         if ((user =userService.getUserByVk(user_id)) == null) {
             user = new Users();
@@ -134,26 +134,12 @@ public class MainController {
         return "room";
     }
 
-
-    @RequestMapping(value = "json")
-    public @ResponseBody Users[] getJson () {
-        Users[] strings = new Users[2];
-        Users users = new Users();
-        users.setName("1");
-        users.setAccess_token("at");
-        Users users1 = new Users();
-        users1.setName("2");
-        users1.setAccess_token("at2");
-        strings[0] = users;
-        strings[1] = users1;
-        return strings;
-    }
-
     @RequestMapping(value = "getRoom/{vk_id}")
     public @ResponseBody Rooms[] getRoomsByVk (@PathVariable ("vk_id") String vk_id) {
         Users user = userService.getUserByVk(vk_id);
         List<Rooms> rooms = roomService.getRoomsByUser(user);
         Rooms[] result = new Rooms[rooms.size()];
+        //result = rooms.toArray(new Rooms[0]);  -- Not works
         for (int i = 0; i<rooms.size(); i++)
         {
             result[i] = new Rooms();
@@ -171,25 +157,34 @@ public class MainController {
 
     }
 
-    @RequestMapping(value = "mp3")
-    public HttpServletResponse mp3 (HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "mp3/{id}")
+    public HttpServletResponse mp3 (@PathVariable ("id") String id,
+                                    HttpServletRequest request,
+                                    HttpServletResponse response)
             throws IOException {
-        File mp3 = new File("/Users/nick/rooms/VKMusicListener/t.mp3");
-        FileInputStream fis = new FileInputStream(mp3);
+        Long long_id = Long.parseLong(id);
+        Music music = musicService.getMusicById(long_id);
+        byte[] song = music.getSong();
         response.setContentType("audio/mpeg");
-        //response.setContentLength((int) mp3.length());
+        response.setContentLength((int) song.length);
         OutputStream os = response.getOutputStream();
-        byte[] buf = new byte[1024];
-        int len;
-        while ((len = fis.read(buf)) != -1) {
-            os.write(buf, 0, len);
-        }
+        os.write(song);
         os.close();
         return response;
     }
 
+    /**
+     * Method for tests
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "hello")
     public String hello (ModelMap model) {
+        try {
+            model.addAttribute("message", vkService.getAudio("http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3"));
+        } catch (IOException e) {
+            model.addAttribute("message", "Error =(");
+        }
         return "home";
     }
 }

@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -23,6 +24,7 @@ import javax.sql.DataSource;
 @ComponentScan("org.ncedu")
 @EnableWebMvc
 @EnableTransactionManagement
+@Import({WebAppSocketConfig.class})
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Bean

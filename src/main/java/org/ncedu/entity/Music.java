@@ -21,8 +21,11 @@ public class Music implements Serializable{
     private String author;
     @Column
     private String name;
+
     @Column
-    private BLOB song;
+    @Lob
+    private byte[] song;
+
     @OneToMany (mappedBy = "music")
     private Set<Playlist> playlists;
 
@@ -52,11 +55,11 @@ public class Music implements Serializable{
         this.name = name;
     }
 
-    public BLOB getSong() {
+    public byte[] getSong() {
         return song;
     }
 
-    public void setSong(BLOB song) {
+    public void setSong(byte[] song) {
         this.song = song;
     }
 

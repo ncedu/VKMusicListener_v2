@@ -13,7 +13,7 @@ $(document).ready(function(){
             author:"TSP",
             title:"Cro Magnon Man",
             discription: "Текст песни / описание",
-            mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
+            mp3:"http://localhost:8080/VKMusicListener/mp3/2",
             oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
         },
         {

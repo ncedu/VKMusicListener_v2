@@ -24,4 +24,14 @@ public class MusicDAOImpl implements MusicDAO {
                 "where p.room_id = " +
                 room_id);
     }
+
+    @Override
+    public void addMusic(Music music) {
+        hibernateTemplate.save(music);
+    }
+
+    @Override
+    public Music getMusicById(Long id) {
+        return hibernateTemplate.get(Music.class, id);
+    }
 }
