@@ -42,6 +42,12 @@ public class RoomServiceImpl implements RoomService {
 
     @Transactional
     @Override
+    public void deleteRoomByLink(String room_link) {
+        roomDAO.deleteRoomByLink(room_link);
+    }
+
+    @Transactional
+    @Override
     public void addRoom(String name, String description, String user_vk_id)
     {
         Rooms room = new Rooms();

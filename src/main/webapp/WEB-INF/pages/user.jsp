@@ -38,7 +38,7 @@
         <a href="javascript:PopUpShow()" class="newRoom">Add new room..</a>
         <hr class="hr">
         <h3>Rooms:</h3>
-        <div id="roomsblock">
+        <div id="roomsblock" style="overflow: auto; height: 80%; margin-top: 5%;">
             <script type="text/javascript">
                 var rooms = ($.ajax({
                     url:"/VKMusicListener/getRoom/"+${vk_id},
@@ -51,6 +51,7 @@
                 for(var i = 0; i < rooms.length; i++)
                 {
                     var gobutton = document.createElement("input");
+                    gobutton.style = "width:10%;height:5%";
                     gobutton.type = "button";
                     gobutton.value = "Go";
                     gobutton.id = rooms[i].room_link + "g";
@@ -59,18 +60,26 @@
                         location.href = str;
                     }
                     var deletebutton = document.createElement("input");
+                    deletebutton.style = "width:10%;height:5%";
                     deletebutton.type = "button";
                     deletebutton.value = "Delete";
                     deletebutton.id = rooms[i].room_link + "d";
                     deletebutton.onclick = function() {
-                        //тут напишу запрос на сервер на удаление
+                        $.ajax({
+                            url:"/VKMusicListener/deleteRoom/"+this.id.substring(0,this.id.length-1),
+                            type:"POST",
+                            data: null
+                        });
                     }
-
+                    var roomname = document.createElement("div");
+                    roomname.innerText = rooms[i].name + " ";
+                    roomname.style = "box-sizing: border-box; margin-left: 3%; text-overflow: ellipsis;display:inline-block; width:10%;height:8%;";
                     var roomsblock = document.getElementById("roomsblock");
-                    roomsblock.appendChild(document.createElement("p"));
-                    document.write(rooms[i].name + " ");
-                    roomsblock.appendChild(gobutton);
-                    roomsblock.appendChild(deletebutton);
+                    var line = document.createElement("div");
+                    roomsblock.appendChild(line);
+                    line.appendChild(roomname);
+                    line.appendChild(gobutton);
+                    line.appendChild(deletebutton);
                 }
             </script>
         </div>

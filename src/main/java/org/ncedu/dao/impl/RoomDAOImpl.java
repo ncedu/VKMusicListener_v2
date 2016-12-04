@@ -55,4 +55,14 @@ public class RoomDAOImpl implements RoomDAO {
             return true;
         } return false;
     }
+
+    //недоделано
+    public void deleteRoomByLink(String link)
+    {
+        //List<Playlist> playlists = (List<Playlist>) hibernateTemplate.find("select p from Playlist p " +
+        //        "join p.room r " +
+        //        "where r.room_link = \'" +  link + "\'");
+        //System.out.println(playlists);
+        //hibernateTemplate.delete(getRoomsByLink(link));
+    }
 }

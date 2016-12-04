@@ -6,5 +6,5 @@ import org.ncedu.entity.User_Playlist;
  * Created by nick on 28.11.16.
  */
 public interface UserPlaylistDAO {
-    public void addUserPlaylist (User_Playlist user_playlist);
+    void addUserPlaylist (User_Playlist user_playlist);
 }

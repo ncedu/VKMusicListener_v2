@@ -9,10 +9,10 @@ import java.util.List;
  * Created by nick on 24.11.16.
  */
 public interface RoomService {
-    public List<Rooms> getRoomsByUser (Users user);
-
+    List<Rooms> getRoomsByUser (Users user);
     void addRoom(String name, String description, String user_vk_id);
-    public Rooms getRoomsByLink (String link);
-    public String getCreatorIdRoomsByLink (String link);
-    public void addUserInRoom (Users user, Rooms room);
+    Rooms getRoomsByLink (String link);
+    String getCreatorIdRoomsByLink (String link);
+    void addUserInRoom (Users user, Rooms room);
+    void deleteRoomByLink(String room_link);
 }

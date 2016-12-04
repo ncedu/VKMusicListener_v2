@@ -152,9 +152,11 @@ public class MainController {
         return result;
     }
 
-    @RequestMapping(value = "deleteRoom/{room_id}")
-    public @ResponseBody void deleteRoom (@PathVariable ("room_id") String room_id) {
-
+    //не работает запрос hql
+    @RequestMapping(value = "deleteRoom/{room_link}")
+    public @ResponseBody void deleteRoom (@PathVariable ("room_link") String room_link) {
+        System.out.println("Deleting room " + room_link);
+        roomService.deleteRoomByLink(room_link);
     }
 
     @RequestMapping(value = "mp3/{id}")

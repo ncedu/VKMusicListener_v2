@@ -9,13 +9,9 @@ import java.util.List;
 
 
 public interface UserDAO {
-    public void addUser (Users user);
-
-    public Users getUserById(Long id);
-
-    public void removeUser (Long id);
-
-    public void updateUser (Users user);
-
-    public List<?> getUserByVk (String vk);
+    void addUser (Users user);
+    Users getUserById(Long id);
+    void removeUser (Long id);
+    void updateUser (Users user);
+    List<?> getUserByVk (String vk);
 }
