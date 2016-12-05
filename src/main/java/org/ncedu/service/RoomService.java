@@ -13,6 +13,7 @@ public interface RoomService {
     void addRoom(String name, String description, String user_vk_id);
     Rooms getRoomsByLink (String link);
     String getCreatorIdRoomsByLink (String link);
-    void addUserInRoom (Users user, Rooms room);
+    void addUserToRoom (Users user, Rooms room);
     void deleteRoomByLink(String room_link);
+    List<Users> getUsersByRoomLink(String room_link);
 }

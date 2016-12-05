@@ -15,4 +15,5 @@ public interface RoomDAO {
     void addRoom(Rooms room);
     boolean isUniqueRoomLink (String link);
     void deleteRoomByLink(String link);
+    List<Users> getUsersByRoomLink(String room_link);
 }

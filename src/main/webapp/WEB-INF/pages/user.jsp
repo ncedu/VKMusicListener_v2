@@ -79,7 +79,8 @@
                     roomsblock.appendChild(line);
                     line.appendChild(roomname);
                     line.appendChild(gobutton);
-                    line.appendChild(deletebutton);
+                    //надо доделать удаление
+                    //   line.appendChild(deletebutton);
                 }
             </script>
         </div>
@@ -113,7 +114,7 @@
                             })
                             document.getElementById("name").value ="";
                             document.getElementById("description").value="";
-                            console.log(rooms);
+                            window.location.reload();
                             PopUpHide();
                         }
                     })
