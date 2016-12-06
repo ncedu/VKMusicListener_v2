@@ -1,7 +1,10 @@
 package org.ncedu.controller;
 
+<<<<<<< HEAD
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
+=======
+>>>>>>> 426aef898b34d42efe5770061b30bab801e6f8f4
 import org.ncedu.entity.*;
 import org.ncedu.service.MusicService;
 import org.ncedu.service.RoomService;
@@ -21,10 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Date;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -59,12 +59,23 @@ public class MainController {
     }
 
     //Реакция на нажатие кнопки "Create Room"
-    //Затем надо инфу с messageRoom перенести в Room, а Room добавить в бд
     @PostMapping(value = "/add_room")
     public ResponseEntity receiveRoom(@RequestBody MessageRoom messageRoom) {
 
         System.out.println("Received from client: " + messageRoom);
         roomService.addRoom(messageRoom.getName(),messageRoom.getDescription(),messageRoom.getCreator_id());
+        return new ResponseEntity("Success", HttpStatus.OK);
+    }
+
+    //Реакция на нажатие кнопки "add_user"
+    @PostMapping(value = "/add_user_to_room")
+    public ResponseEntity receiveRoom(@RequestBody MessageUserToRoom messageUserToRoom) {
+        System.out.println("Received from client: " + messageUserToRoom);
+        System.out.println(userService.getUserByVk(messageUserToRoom.getUserVkId()));
+        System.out.println(roomService.getRoomsByLink(messageUserToRoom.getRoomLink()));
+        roomService.addUserToRoom(
+                userService.getUserByVk(messageUserToRoom.getUserVkId()),
+                roomService.getRoomsByLink(messageUserToRoom.getRoomLink()));
         return new ResponseEntity("Success", HttpStatus.OK);
     }
 
@@ -130,8 +141,12 @@ public class MainController {
         model.addAttribute("room_creator", creator.getName());
         model.addAttribute("room_created", room.getCreated().toString());
         model.addAttribute("room_description", room.getDescription());
+<<<<<<< HEAD
         model.addAttribute("room_id", room.getRoom_id());
         model.addAttribute("vk_id", creator.getVk_id());
+=======
+        model.addAttribute("room_link", room.getRoom_link());
+>>>>>>> 426aef898b34d42efe5770061b30bab801e6f8f4
         return "room";
     }
 
@@ -153,9 +168,30 @@ public class MainController {
         return result;
     }
 
-    @RequestMapping(value = "deleteRoom/{room_id}")
-    public @ResponseBody void deleteRoom (@PathVariable ("room_id") String room_id) {
+    //не работает запрос hql
+    @RequestMapping(value = "deleteRoom/{room_link}")
+    public @ResponseBody void deleteRoom (@PathVariable ("room_link") String room_link) {
+        System.out.println("Deleting room " + room_link);
+        roomService.deleteRoomByLink(room_link);
+    }
 
+    @RequestMapping(value = "getUsersByRoom/{room_link}")
+    public @ResponseBody Users[] getUsersByRoom (@PathVariable ("room_link") String room_link) {
+        System.out.println("Received " + room_link);
+        List<Users> users = roomService.getUsersByRoomLink(room_link);
+        Users result[] = new Users[users.size()];
+        for (int i = 0; i<users.size(); i++)
+        {
+            result[i] = new Users();
+            result[i].setName(users.get(i).getName());
+            result[i].setAccess_token(users.get(i).getAccess_token());
+            result[i].setRegistration(users.get(i).getRegistration());
+            result[i].setSession_id(users.get(i).getSession_id());
+            result[i].setUser_id(users.get(i).getUser_id());
+            result[i].setVk_id(users.get(i).getVk_id());
+        }
+        System.out.println("Found " + result);
+        return result;
     }
 
     @RequestMapping(value = "mp3/{id}")

@@ -50,14 +50,35 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean isUniqueRoomLink(String link) {
-        List result = hibernateTemplate.find("select * from Rooms r where r.room_link = ''" + link + "''");
+        List result = hibernateTemplate.find("select r from Rooms r where r.room_link = \'" + link + "\'");
         if (result == null || result.size() == 0) {
             return true;
         } return false;
     }
 
+<<<<<<< HEAD
     @Override
     public Rooms getRoomsById(Long id) {
         return (Rooms) hibernateTemplate.get(Rooms.class, id);
+=======
+    //недоделано
+    public void deleteRoomByLink(String link)
+    {
+        //List<Playlist> playlists = (List<Playlist>) hibernateTemplate.find("select p from Playlist p " +
+        //        "join p.room r " +
+        //        "where r.room_link = \'" +  link + "\'");
+        //System.out.println(playlists);
+        //hibernateTemplate.delete(getRoomsByLink(link));
+    }
+
+    public List<Users> getUsersByRoomLink(String room_link)
+    {
+        return (List<Users>) hibernateTemplate.find("select distinct u from Users u " +
+                "join u.user_playlists up " +
+                "join up.playlist p " +
+                "join p.room r " +
+                "where r.room_link = \'" +
+                room_link + "\'");
+>>>>>>> 426aef898b34d42efe5770061b30bab801e6f8f4
     }
 }

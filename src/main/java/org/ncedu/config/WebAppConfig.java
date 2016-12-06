@@ -40,7 +40,11 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     public DataSource dataSource () {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+<<<<<<< HEAD
         dataSource.setUrl("jdbc:oracle:thin:@10.17.1.41:1521/orcl");
+=======
+        dataSource.setUrl("jdbc:oracle:thin:@172.16.172.107:1521/orcl");
+>>>>>>> 426aef898b34d42efe5770061b30bab801e6f8f4
         dataSource.setUsername("admin");
         dataSource.setPassword("1");
         return dataSource;

@@ -42,6 +42,12 @@ public class RoomServiceImpl implements RoomService {
 
     @Transactional
     @Override
+    public void deleteRoomByLink(String room_link) {
+        roomDAO.deleteRoomByLink(room_link);
+    }
+
+    @Transactional
+    @Override
     public void addRoom(String name, String description, String user_vk_id)
     {
         Rooms room = new Rooms();
@@ -87,7 +93,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Transactional
     @Override
-    public void addUserInRoom(Users user, Rooms room) {
+    public void addUserToRoom(Users user, Rooms room) {
         Playlist playlist = new Playlist();
         playlist.setMusic(null);
         playlist.setRoom(room);
@@ -108,5 +114,11 @@ public class RoomServiceImpl implements RoomService {
         for(int i=0;i<30;i++)
             randLink.append(symbols.charAt((int)(Math.random()*symbols.length())));
         return randLink.toString();
+    }
+
+
+    public List<Users> getUsersByRoomLink(String room_link)
+    {
+        return roomDAO.getUsersByRoomLink(room_link);
     }
 }
