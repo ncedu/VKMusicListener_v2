@@ -14,4 +14,5 @@ public interface RoomDAO {
     public List<Long> getCreatorIdRoomByLink (String link);
     public void addRoom(Rooms room);
     public boolean isUniqueRoomLink (String link);
+    public Rooms getRoomsById (Long id);
 }

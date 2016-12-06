@@ -20,8 +20,9 @@ public class MusicDAOImpl implements MusicDAO {
     public List<Music> getMusicByRoomId(Long room_id) {
         return (List<Music>) hibernateTemplate.find("select m " +
                 "from Playlist p " +
-                "join Music m " +
-                "where p.room_id = " +
+                "join p.music m " +
+                "join p.room r " +
+                "where r.room_id = " +
                 room_id);
     }
 

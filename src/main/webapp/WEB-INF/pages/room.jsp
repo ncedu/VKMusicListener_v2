@@ -7,8 +7,67 @@
     <!-- audio -->
     <script type="text/javascript" src="http://localhost:8080/VKMusicListener/resources/script/lib/jPlayer.2.6.0/js/jquery.jplayer.min.js"></script>
     <script type="text/javascript" src="http://localhost:8080/VKMusicListener/resources/script/lib/jPlayer.2.6.0/js/jplayer.playlist.min.js"></script>
-    <script type="text/javascript" src="http://localhost:8080/VKMusicListener/resources/script/player.js"></script>
     <link href="http://localhost:8080/VKMusicListener/resources/script/lib/jPlayer.2.6.0/skin/vkontakte/vkontakte.css" rel="stylesheet" type="text/css" />
+    <script src="http://localhost:8080/VKMusicListener/resources/script/sockjs-0.3.4.js"></script>
+    <script src="http://localhost:8080/VKMusicListener/resources/script/stomp.js"></script>
+    <script>
+        $(document).ready(function () {
+            PopUpHide();
+        });
+        function PopUpShow() {
+            $("#popup1").show();
+        }
+
+        function PopUpHide() {
+            $("#popup1").hide();
+        }
+    </script>
+    <script type="text/javascript">
+        var stompClient = null;
+        function connect() {
+            var socket = new SockJS('/VKMusicListener/addMusic');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/showResult', function(music){
+                    showResult(JSON.parse(music.body));
+                });
+            });
+        }
+        function disconnect() {
+            stompClient.disconnect();
+            setConnected(false);
+            console.log("Disconnected");
+        }
+        function sendMusic(audio) {
+            var uid = window.uid;
+            var room_id = window.room_id;
+            var link = audio.link;
+            var name = audio.name;
+            var author = audio.author;
+            stompClient.send("/player/addMusic", {}, JSON.stringify({
+                'uid': uid,
+                'room_id': room_id,
+                'link': link,
+                'name': name,
+                'author': author
+            }));
+        }
+        function showResult(music) {
+            var track = {
+                author: music.author,
+                title: music.name,
+                mp3: "http://localhost:8080/VKMusicListener/mp3/" + music.music_id
+            };
+            console.log(music);
+            jPP.add(track);
+            var searchlist = document.getElementById("searchlist");
+            searchlist.innerHTML = "";
+            var q = document.getElementById("query").value;
+            q = "Give me a query!";
+            PopUpHide();
+        }
+    </script>
 </head>
     <body>
         <div class="top">
@@ -23,7 +82,7 @@
                         <form id="room-action">
                             <p>
                                 <button>Add user</button>
-                                <button>Add song</button>
+                                <button id="addsong" type="button" onclick="PopUpShow();">Add song</button>
                             </p>
                         </form>
                     </div>
@@ -116,5 +175,94 @@
                 </div>
             </div>
         </div>
+        <div class="popup" id="popup1">
+            <div class="popup-content">
+                <a href="javascript:PopUpHide()" class="hidePopUp">Close</a>
+                <div class="searchParams">
+                    <form>
+                        <p><input id="query" type="text" value="Give me a query!"/></p>
+                        <button id="send" type="button"/>Search</p>
+                    </form>
+                </div>
+                <ul id="searchlist">
+                </ul>
+                <script type="text/javascript">
+                    function addEventListenertoButtons(audio, id) {
+                        document.getElementById(id).addEventListener("mousedown", function (event) {
+                            sendMusic(audio);
+                        });
+                    }
+
+                    document.getElementById("send").addEventListener("mousedown", function (event) {
+                        if (event.which == 1) {
+                            var query = { q : null, uid : null };
+                            var q = document.getElementById("query").value;
+                            var audio = $.ajax({
+                                url:"/VKMusicListener/search?"+"uid="+uid+"&q="+q,
+                                type:"GET",
+                                data: null,
+                                async: false
+                            }).responseJSON;
+                            for (var i = 0; i < audio.length; i++) {
+                                var li = document.createElement("li");
+                                var p = document.createElement("p");
+                                var button = document.createElement("button");
+                                button.type = "button";
+                                button.textContent = "Add";
+                                button.id = audio[i].link;
+                                button.setAttribute("class", "Addeds");
+                                var author = audio[i].author;
+                                var name = audio[i].name;
+                                p.innerHTML = author + " - " + name + "\t";
+                                li.appendChild(p);
+                                li.appendChild(button);
+                                var searchlist = document.getElementById("searchlist");
+                                searchlist.appendChild(li);
+                                addEventListenertoButtons(audio[i], button.id);
+                            }
+                            document.getElementById("query").value ="";
+                            console.log(audio);
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            window.uid = ${vk_id};
+            window.room_id = ${room_id};
+            connect();
+            var cssSelector = {
+                jPlayer: "#jquery_jplayer_1",
+                cssSelectorAncestor: "#jp_container_1"
+            };
+            var playlist = [];
+
+            var options = {
+                swfPath: "js",
+                supplied: "oga, mp3",
+                wmode: "window",
+                smoothPlayBar: false,
+                keyEnabled: true
+            };
+
+            window.jPP = new jPlayerPlaylist(cssSelector, playlist, options);
+            window.mm = ($.ajax({
+                url:"http://localhost:8080/VKMusicListener/music/"+ window.room_id,
+                type: "GET",
+                data: null,
+                async: false
+            })).responseJSON;
+            console.log("JSON "+window.mm);
+            for (var i = 0; i < mm.length; i++) {
+                var track = {
+                    author: "\""+ window.mm[i].author + "\"",
+                    title: "\"" + window.mm[i].name + "\"",
+                    mp3: "http://localhost:8080/VKMusicListener/mp3/" + window.mm[i].link
+                };
+                window.jPP.add(track);
+            }
+        });
+    </script>
     </body>
 </html>

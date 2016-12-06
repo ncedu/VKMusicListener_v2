@@ -1,9 +1,8 @@
 package org.ncedu.controller;
 
-import org.ncedu.entity.MessageRoom;
-import org.ncedu.entity.Music;
-import org.ncedu.entity.Rooms;
-import org.ncedu.entity.Users;
+import com.vk.api.sdk.exceptions.ApiException;
+import com.vk.api.sdk.exceptions.ClientException;
+import org.ncedu.entity.*;
 import org.ncedu.service.MusicService;
 import org.ncedu.service.RoomService;
 import org.ncedu.service.UserService;
@@ -131,6 +130,8 @@ public class MainController {
         model.addAttribute("room_creator", creator.getName());
         model.addAttribute("room_created", room.getCreated().toString());
         model.addAttribute("room_description", room.getDescription());
+        model.addAttribute("room_id", room.getRoom_id());
+        model.addAttribute("vk_id", creator.getVk_id());
         return "room";
     }
 
@@ -159,20 +160,55 @@ public class MainController {
 
     @RequestMapping(value = "mp3/{id}")
     public HttpServletResponse mp3 (@PathVariable ("id") String id,
-                                    HttpServletRequest request,
                                     HttpServletResponse response)
             throws IOException {
         Long long_id = Long.parseLong(id);
         Music music = musicService.getMusicById(long_id);
         byte[] song = music.getSong();
         response.setContentType("audio/mpeg");
-        response.setContentLength((int) song.length);
+        response.setContentLength(song.length);
         OutputStream os = response.getOutputStream();
         os.write(song);
+        os.flush();
         os.close();
         return response;
     }
 
+    @RequestMapping (value = "music/{room_id}")
+    public @ResponseBody MessageMusic[] getMusic (@PathVariable ("room_id") String room_id) {
+        List<Music> musicList = musicService.getMusicByRoom(Long.parseLong(room_id));
+        MessageMusic[] musics = new MessageMusic[musicList.size()];
+        int i = 0;
+        for (Music entry: musicList) {
+            MessageMusic music = new MessageMusic();
+            music.setLink(String.valueOf(entry.getMusic_id()));
+            music.setAuthor(entry.getAuthor());
+            music.setName(entry.getName());
+            musics[i] = music;
+            i++;
+        }
+        return musics;
+    }
+
+    @RequestMapping (value = "getaudio")
+    public @ResponseBody Music downloadAndSaveAudio (@RequestParam (value = "uid") String uid,
+                                                     @RequestParam (value = "room_id") String room_id,
+                                                     @RequestParam (value = "link") String link,
+                                                     @RequestParam (value = "name") String name,
+                                                     @RequestParam (value = "author") String author) throws IOException {
+        return vkService.getAudio(uid, room_id, link, name, author);
+    }
+
+    @RequestMapping (value = "search")
+    public @ResponseBody MessageMusic[] searchMusic (@RequestParam(value = "q") String query,
+                                                     @RequestParam(value = "uid") String uid) throws ClientException, ApiException {
+        return vkService.searchAudio(uid, query);
+    }
+
+    @RequestMapping (value = "vkmusic/{uid}")
+    public @ResponseBody MessageMusic[] getMusicByVk (@PathVariable (value = "uid") String uid) throws ClientException, ApiException {
+        return vkService.getAudioList(Integer.parseInt(uid));
+    }
     /**
      * Method for tests
      * @param model
@@ -180,11 +216,11 @@ public class MainController {
      */
     @RequestMapping(value = "hello")
     public String hello (ModelMap model) {
-        try {
-            model.addAttribute("message", vkService.getAudio("http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3"));
-        } catch (IOException e) {
-            model.addAttribute("message", "Error =(");
-        }
+//        try {
+//            model.addAttribute("message", vkService.getAudio("http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3"));
+//        } catch (IOException e) {
+//            model.addAttribute("message", "Error =(");
+//        }
         return "home";
     }
 }

@@ -55,4 +55,9 @@ public class RoomDAOImpl implements RoomDAO {
             return true;
         } return false;
     }
+
+    @Override
+    public Rooms getRoomsById(Long id) {
+        return (Rooms) hibernateTemplate.get(Rooms.class, id);
+    }
 }

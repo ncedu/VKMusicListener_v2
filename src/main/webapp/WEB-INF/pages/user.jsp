@@ -39,6 +39,9 @@
         <hr class="hr">
         <h3>Rooms:</h3>
         <div id="roomsblock">
+            <ul id="listrooms">
+
+            </ul>
             <script type="text/javascript">
                 var rooms = ($.ajax({
                     url:"/VKMusicListener/getRoom/"+${vk_id},
@@ -65,12 +68,20 @@
                     deletebutton.onclick = function() {
                         //тут напишу запрос на сервер на удаление
                     }
-
                     var roomsblock = document.getElementById("roomsblock");
-                    roomsblock.appendChild(document.createElement("p"));
-                    document.write(rooms[i].name + " ");
-                    roomsblock.appendChild(gobutton);
-                    roomsblock.appendChild(deletebutton);
+                    var listrooms = document.getElementById("listrooms");
+                    var li = document.createElement("li");
+                    var p = document.createElement("p");
+                    p.innerHTML = rooms[i].name + "\t";
+                    //p.value=rooms[i].name + "\t";
+                    li.appendChild(p);
+                    li.appendChild(gobutton);
+                    li.appendChild(deletebutton);
+                    roomsblock.appendChild(li);
+                    //roomsblock.appendChild(document.createElement("p"));
+                    //document.write(rooms[i].name + " ");
+                    //roomsblock.appendChild(gobutton);
+                    //roomsblock.appendChild(deletebutton);
                 }
             </script>
         </div>
